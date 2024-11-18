@@ -1,4 +1,4 @@
-
+import numpy as np
 from sklearn.datasets import load_wine
 from sklearn import tree
 from sklearn.model_selection import KFold
@@ -6,6 +6,9 @@ from sklearn.ensemble import RandomForestClassifier, HistGradientBoostingClassif
 import pandas as pd
 from sklearn.model_selection import GridSearchCV, KFold
 import joblib
+import plotly.colors as colors
+import plotly.express as px
+from plotly.subplots import make_subplots
 
 
 ### This code shows how to use KFold to do cross_validation.
@@ -18,11 +21,50 @@ kf = KFold(n_splits=5)
 for train_index, test_index in kf.split(X) :
     X_train, X_test, y_train, y_test = \
         (X[train_index], X[test_index], y[train_index], y[test_index])
-    clf = tree.DecisionTreeClassifier()
+    # clf = tree.DecisionTreeClassifier()
+    clf = RandomForestClassifier(n_estimators=100, max_depth=5, criterion='gini')
     clf.fit(X_train, y_train)
     scores.append(clf.score(X_test, y_test))
 
 print(scores)
+
+n_estimators_list = [10, 25, 50]
+criteria = ['gini', 'entropy']
+
+results = []
+
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
+
+for criterion in criteria:
+    for n_estimators in n_estimators_list:
+        scores = []
+        for train_index, test_index in kf.split(X):
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+            clf = RandomForestClassifier(n_estimators=n_estimators, criterion=criterion, random_state=42)
+            clf.fit(X_train, y_train)
+            scores.append(clf.score(X_test, y_test))
+        results.append({
+            'Criterion': criterion,
+            'Estimators': n_estimators,
+            'Mean Accuracy': np.mean(scores),
+            'Std Accuracy': np.std(scores)
+        })
+
+results_df = pd.DataFrame(results)
+fig = px.bar(
+    results_df,
+    x="Estimators",
+    y="Mean Accuracy",
+    color="Criterion",
+    barmode="group",
+    error_y="Std Accuracy",
+    title="Random Forest Mean Accuracy by Number of Estimators and Criterion",
+    labels={"Estimators": "Number of Estimators", "Mean Accuracy": "Accuracy"}
+)
+fig.show()
+
+print(results_df)
 
 ## Part 2. This code (from https://scikit-learn.org/1.5/auto_examples/ensemble/plot_forest_hist_grad_boosting_comparison.html)
 ## shows how to use GridSearchCV to do a hyperparameter search to compare two techniques.
@@ -61,10 +103,6 @@ for name, model in models.items():
 print(results)
 
 #### Part 3: This shows how to generate a scatter plot of your results
-
-import plotly.colors as colors
-import plotly.express as px
-from plotly.subplots import make_subplots
 
 fig = make_subplots(
     rows=1,

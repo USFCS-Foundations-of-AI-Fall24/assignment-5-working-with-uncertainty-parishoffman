@@ -78,9 +78,43 @@ class HMM:
         return sequence
 
     def forward(self, sequence):
-        pass
+        with open(sequence, "r") as f:
+            lines = f.readlines()
+            lines = [line.strip('\n') for line in lines]
+            sequence = lines
+
+        states = list(self.transitions.keys())
+        states.remove("#")
+        n_states = len(states)
+        n_steps = len(sequence)
+
+        forward = [[0] * n_steps for _ in range(n_states)]
+        state_to_index = {state: i for i, state in enumerate(states)}
+
+        for state in states:
+            state_index = state_to_index[state]
+            forward[state_index][0] = (
+                    self.transitions["#"].get(state, 0) * self.emissions[state].get(sequence[0], 0)
+            )
+
+        for t in range(1, n_steps):
+            for state in states:
+                state_index = state_to_index[state]
+                forward[state_index][t] = sum(
+                    forward[prev_index][t - 1]
+                    * self.transitions[prev_state].get(state, 0)
+                    * self.emissions[state].get(sequence[t], 0)
+                    for prev_state, prev_index in state_to_index.items()
+                )
+
+        final_probability = sum(
+            forward[state_index][-1] for state_index in range(n_states)
+        )
+
+        return final_probability
     ## you do this: Implement the Viterbi algorithm. Given a Sequence with a list of emissions,
     ## determine the most likely sequence of states.
+
 
 
 
@@ -98,6 +132,7 @@ def main():
     parser = argparse.ArgumentParser(description="HMM.py")
     parser.add_argument("basename")
     parser.add_argument("--generate")
+    parser.add_argument("--forward")
     args = parser.parse_args()
 
     hmm = HMM()
@@ -106,9 +141,11 @@ def main():
     if args.generate:
         sequence = hmm.generate(int(args.generate))
         print(" ".join(sequence))
+    elif args.forward:
+        final_state = hmm.forward(args.forward)
+        print(final_state)
 
 main()
-
 
 # code to generate lander.trans
 # def generate_transitions(grid_size):

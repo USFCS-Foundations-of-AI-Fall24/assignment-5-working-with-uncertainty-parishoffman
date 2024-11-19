@@ -95,9 +95,17 @@ class HMM:
 
 
 def main():
+    parser = argparse.ArgumentParser(description="HMM.py")
+    parser.add_argument("basename")
+    parser.add_argument("--generate")
+    args = parser.parse_args()
+
     hmm = HMM()
-    hmm.load('cat')
-    print(hmm.generate(20))
+    hmm.load(args.basename)
+
+    if args.generate:
+        sequence = hmm.generate(int(args.generate))
+        print("Generated Sequence:", " ".join(sequence))
 main()
 
 

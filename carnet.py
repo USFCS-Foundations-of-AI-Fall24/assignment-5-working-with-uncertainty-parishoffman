@@ -69,3 +69,10 @@ car_infer = VariableElimination(car_model)
 print(car_infer.query(variables=["Moves"],evidence={"Radio":"turns on", "Starts":"yes"}))
 
 
+def main() :
+    print(car_infer.query(variables=["Battery"], evidence={"Moves": "no"}))
+    print(car_infer.query(variables=["Starts"], evidence={"Radio": "Doesn't turn on"}))
+    print(car_infer.query(variables=["Radio"], evidence={"Battery": "Works", "Gas": "Full"}))
+    print(car_infer.query(variables=["Starts"], evidence={"Radio": "turns on", "Gas": "Full"}))
+
+main()

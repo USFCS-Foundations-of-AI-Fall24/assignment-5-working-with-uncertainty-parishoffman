@@ -105,7 +105,7 @@ def main():
 
     if args.generate:
         sequence = hmm.generate(int(args.generate))
-        print("Generated Sequence:", " ".join(sequence))
+        print(" ".join(sequence))
 
 main()
 

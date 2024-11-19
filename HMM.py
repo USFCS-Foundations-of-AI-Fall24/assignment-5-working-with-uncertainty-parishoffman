@@ -38,19 +38,18 @@ class HMM:
         """reads HMM structure from transition (basename.trans),
         and emission (basename.emit) files,
         as well as the probabilities."""
-        with open(f"{basename}.trans", "r") as trans_file:
-            for line in trans_file:
-                source, target, probability = line.strip().split()
-                if source not in self.transitions:
-                    self.transitions[source] = {}
-                self.transitions[source][target] = probability
 
-        with open(f"{basename}.emit", "r") as emit_file:
-            for line in emit_file:
-                state, symbol, probability = line.strip().split()
-                if state not in self.emissions:
-                    self.emissions[state] = {}
-                self.emissions[state][symbol] = probability
+        def load_file(dict, filename) :
+            with open(filename, "r") as f:
+                lines = f.readlines()
+                for line in lines :
+                    source, target, score = line.strip().split()
+                    if source not in dict:
+                        dict[source] = {}
+                    dict[source][target] = float(score)
+
+        load_file(self.transitions, f'{basename}.trans')
+        load_file(self.emissions, f'{basename}.emit')
 
 
    ## you do this.

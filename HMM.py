@@ -55,7 +55,27 @@ class HMM:
    ## you do this.
     def generate(self, n):
         """return an n-length Sequence by randomly sampling from this HMM."""
-        pass
+        sequence = []
+        state = "#"
+
+        for i in range(n):
+            if state not in self.transitions:
+                continue
+
+            next_states = list(self.transitions[state].keys())
+            next_probs = list(self.transitions[state].values())
+            state = random.choices(next_states, weights=next_probs, k=1)[0]
+
+            if state not in self.emissions:
+                raise ValueError(f"No emission probabilities defined for state '{state}'")
+
+            emissions = list(self.emissions[state].keys())
+            emission_probs = list(self.emissions[state].values())
+            emission = random.choices(emissions, weights=emission_probs, k=1)[0]
+
+            sequence.append(emission)
+
+        return sequence
 
     def forward(self, sequence):
         pass
@@ -77,8 +97,7 @@ class HMM:
 def main():
     hmm = HMM()
     hmm.load('cat')
-    print(hmm.transitions)
-    print(hmm.emissions)
+    print(hmm.generate(20))
 main()
 
 

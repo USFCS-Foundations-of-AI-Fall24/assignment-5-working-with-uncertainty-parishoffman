@@ -106,7 +106,38 @@ def main():
     if args.generate:
         sequence = hmm.generate(int(args.generate))
         print("Generated Sequence:", " ".join(sequence))
+
 main()
+
+
+# code to generate lander.trans
+# def generate_transitions(grid_size):
+#     transitions = []
+#
+#     for row in range(1, grid_size + 1):
+#         for col in range(1, grid_size + 1):
+#             current = f"{row},{col}"
+#
+#             diag_down_right = (min(row + 1, grid_size), min(col + 1, grid_size))
+#             right = (row, min(col + 1, grid_size))
+#             down = (min(row + 1, grid_size), col)
+#
+#             transitions.append(f"{current} {diag_down_right[0]},{diag_down_right[1]} 0.7")
+#             transitions.append(f"{current} {right[0]},{right[1]} 0.15")
+#             transitions.append(f"{current} {down[0]},{down[1]} 0.15")
+#
+#     return transitions
+#
+#
+# grid_size = 5
+# transitions = generate_transitions(grid_size)
+#
+# with open("lander.trans", "w") as file:
+#     for transition in transitions:
+#         file.write(transition + "\n")
+
+# code to generate lander.emit
+
 
 
 

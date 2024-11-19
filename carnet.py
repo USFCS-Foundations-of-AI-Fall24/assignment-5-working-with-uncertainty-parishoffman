@@ -72,7 +72,16 @@ print(car_infer.query(variables=["Moves"],evidence={"Radio":"turns on", "Starts"
 def main() :
     print(car_infer.query(variables=["Battery"], evidence={"Moves": "no"}))
     print(car_infer.query(variables=["Starts"], evidence={"Radio": "Doesn't turn on"}))
-    print(car_infer.query(variables=["Radio"], evidence={"Battery": "Works", "Gas": "Full"}))
+    print(car_infer.query(variables=["Radio"], evidence={"Battery": "Works"}))
+    radio_prob_without_gas = car_infer.query(variables=["Radio"], evidence={"Battery": "Works"})
+    radio_prob_with_gas = car_infer.query(variables=["Radio"], evidence={"Battery": "Works", "Gas": "Full"})
+    print("Without evidence of gas:", radio_prob_without_gas)
+    print("With evidence of gas:", radio_prob_with_gas)
+    ignition_prob_without_gas = car_infer.query(variables=["Ignition"], evidence={"Moves": "no"})
+    ignition_prob_with_no_gas = car_infer.query(variables=["Ignition"], evidence={"Moves": "no", "Gas": "Empty"})
+    print("Without evidence of gas:", ignition_prob_without_gas)
+    print("With evidence of no gas:", ignition_prob_with_no_gas)
     print(car_infer.query(variables=["Starts"], evidence={"Radio": "turns on", "Gas": "Full"}))
+
 
 main()

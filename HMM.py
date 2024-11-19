@@ -136,7 +136,36 @@ main()
 #     for transition in transitions:
 #         file.write(transition + "\n")
 
+
 # code to generate lander.emit
+# def generate_emissions(grid_size):
+#     emissions = []
+#
+#     for row in range(1, grid_size + 1):
+#         for col in range(1, grid_size + 1):
+#             current = f"{row},{col}"
+#
+#             emissions.append(f"{current} {row},{col} 0.6")
+#
+#             neighbors = {
+#                 "up": (max(row - 1, 1), col),
+#                 "down": (min(row + 1, grid_size), col),
+#                 "left": (row, max(col - 1, 1)),
+#                 "right": (row, min(col + 1, grid_size)),
+#             }
+#
+#             for direction, (n_row, n_col) in neighbors.items():
+#                 emissions.append(f"{current} {n_row},{n_col} 0.1")
+#
+#     return emissions
+#
+# grid_size = 5
+# emissions = generate_emissions(grid_size)
+#
+# with open("lander.emit", "w") as file:
+#     for emission in emissions:
+#         file.write(emission + "\n")
+
 
 
 

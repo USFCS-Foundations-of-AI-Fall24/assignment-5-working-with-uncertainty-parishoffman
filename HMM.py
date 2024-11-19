@@ -141,8 +141,6 @@ class HMM:
     ## You do this. Given a sequence with a list of emissions, fill in the most likely
     ## hidden states using the Viterbi algorithm
 
-
-
 def main():
     parser = argparse.ArgumentParser(description="HMM.py")
     parser.add_argument("basename")

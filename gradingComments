@@ -1,0 +1,55 @@
+Assignment 5 Comments:
+
+sklearn:
+
+new dataset. 5/5
+
+random forest 5/5
+
+GridSearchCV 5/5
+
+Scatterplot 5/5
+
+Belief Networks:
+
+alarm queries 5/5
+
+car queries 5/5
+
+additional node 5/5
+
+HMM:
+
+load 5/5
+
+generate 10/10
+
+lander models 5/5
+
+forward 6/10
+I think you're processing the name of the file, rather than the obseravtions?
+I get this output.
+python HMM.py cat --forward cat_sequence.obs
+{1: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 2: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 3: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 4: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 5: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 6: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 7: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 8: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 9: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 10: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 11: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}, 12: {'c': 0.0, 'a': 0.0, 't': 0.0, '_': 0.0, 's': 0.0, 'e': 0.0, 'q': 0.0, 'u': 0.0, 'n': 0.0, '.': 0.0, 'o': 0.0, 'b': 0.0}}
+
+viterbi 10/15 - good start, but not totally working. I get this output:
+python HMM.py partofspeech --viterbi ambiguous_sents.obs
+[None, 'a']
+
+Utility:
+
+q1 5/5
+
+q2 5/5
+
+q3 1/2 need to renormalize probabilities
+
+q4 3/3
+
+q5 2/2 So we should take route 1 instead.
+
+q6 0/3 - route 1 looks better no matter what, so the satellite is 
+not helpful.
+
+87/100
+
